@@ -671,9 +671,9 @@
   <section>
     <div class="hero">
       <div>
-        <div class="hero-tag">🇨🇳 China → Argentina · Sin escalas</div>
-        <h1>Remodelar tu casa<br>nunca fue<br><span>tan fácil</span></h1>
-        <p class="hero-desc">
+        <div class="hero-tag" id="hero-tag">🇨🇳 China → Argentina · Sin escalas</div>
+        <h1 id="hero-title">Remodelar tu casa<br>nunca fue<br><span>tan fácil</span></h1>
+        <p class="hero-desc" id="hero-desc">
           Exportamos directo desde China a Argentina, sin intermediarios.
           Paneles WPC, placas simil mármol UV y pisos SPC click al mejor precio del mercado.
           Calculá tu presupuesto al instante.
@@ -690,14 +690,14 @@
         </div>
       </div>
       <div class="hero-img">
-        <img src="/images/ambiente.jpg" alt="Ambiente revestido con productos DRAX" onerror="this.parentElement.innerHTML='<div class=hero-img-placeholder>ambiente.jpg</div>'">
+        <img id="img-ambiente" src="/images/ambiente.jpg" alt="Ambiente revestido con productos DRAX" onerror="this.parentElement.innerHTML='<div class=hero-img-placeholder>ambiente.jpg</div>'">
       </div>
     </div>
   </section>
 
   <!-- STATS -->
   <div class="stats-bar">
-    <div class="stats-inner">
+    <div class="stats-inner" id="stats-inner">
       <div class="stat">
         <div class="stat-num">+30</div>
         <div class="stat-label">Diseños disponibles</div>
@@ -726,7 +726,7 @@
         <!-- WPC Interior -->
         <div class="product-card">
           <div class="product-img">
-            <img src="/images/wpc.jpg" alt="Panel WPC Interior" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>🪵</div>'">
+            <img id="img-wpc" src="/images/wpc.jpg" alt="Panel WPC Interior" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>🪵</div>'">
           </div>
           <div class="product-body">
             <div class="product-cat">Revestimiento interior</div>
@@ -745,7 +745,7 @@
         <!-- WPC Exterior -->
         <div class="product-card">
           <div class="product-img">
-            <img src="/images/atornilladora.jpg" alt="Panel WPC Exterior" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>🏗️</div>'">
+            <img id="img-wpc_ext" src="/images/atornilladora.jpg" alt="Panel WPC Exterior" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>🏗️</div>'">
           </div>
           <div class="product-body">
             <div class="product-cat">Revestimiento exterior</div>
@@ -762,7 +762,7 @@
         <!-- UV Mármol -->
         <div class="product-card">
           <div class="product-img">
-            <img src="/images/marmol.jpg" alt="Placa UV Simil Mármol" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>🪨</div>'">
+            <img id="img-marmol" src="/images/marmol.jpg" alt="Placa UV Simil Mármol" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>🪨</div>'">
           </div>
           <div class="product-body">
             <div class="product-cat">Simil mármol</div>
@@ -781,7 +781,7 @@
         <!-- Pisos SPC -->
         <div class="product-card">
           <div class="product-img">
-            <img src="/images/pisos.jpg" alt="Pisos SPC Click" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>🏠</div>'">
+            <img id="img-pisos" src="/images/pisos.jpg" alt="Pisos SPC Click" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>🏠</div>'">
           </div>
           <div class="product-body">
             <div class="product-cat">Pisos flotantes</div>
@@ -883,8 +883,8 @@
   <section>
     <div class="section">
       <div class="cta-banner">
-        <h2>¿Tenés un proyecto en mente?<br>Cotizá gratis en segundos.</h2>
-        <p>Sin registrarse. Sin datos personales. El presupuesto es tuyo al instante.</p>
+        <h2 id="cta-title">¿Tenés un proyecto en mente?<br>Cotizá gratis en segundos.</h2>
+        <p id="cta-desc">Sin registrarse. Sin datos personales. El presupuesto es tuyo al instante.</p>
         <div class="cta-banner-actions">
           <a class="btn-white" href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">
             Ir al cotizador →
@@ -933,6 +933,45 @@
   </footer>
 
   <script>
+    // Carga contenido dinámico desde content.json
+    fetch('/api/content').then(r => r.json()).then(c => {
+      // Hero
+      if (c.hero) {
+        if (c.hero.tag) document.getElementById('hero-tag').textContent = c.hero.tag;
+        if (c.hero.title) document.getElementById('hero-title').innerHTML = c.hero.title.replace(/\n/g, '<br>') + ' <!-- rebuilt -->';
+        if (c.hero.desc) document.getElementById('hero-desc').textContent = c.hero.desc;
+      }
+      // Stats
+      if (c.stats && c.stats.length) {
+        const container = document.getElementById('stats-inner');
+        container.innerHTML = c.stats.map(s =>
+          `<div class="stat"><div class="stat-num">${s.num}</div><div class="stat-label">${s.label}</div></div>`
+        ).join('');
+      }
+      // CTA
+      if (c.cta) {
+        if (c.cta.title) document.getElementById('cta-title').innerHTML = c.cta.title.replace(/\n/g, '<br>');
+        if (c.cta.desc) document.getElementById('cta-desc').textContent = c.cta.desc;
+      }
+      // Imágenes
+      if (c.images) {
+        Object.entries(c.images).forEach(([key, url]) => {
+          const el = document.getElementById('img-' + key);
+          if (el && url) { el.src = url; el.onerror = null; }
+          if (key === 'logo') {
+            const nav = document.querySelector('.nav-logo');
+            if (nav) nav.src = url;
+          }
+        });
+      }
+      // WhatsApp links
+      if (c.whatsapp) {
+        document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
+          a.href = 'https://wa.me/' + c.whatsapp;
+        });
+      }
+    }).catch(() => {}); // Si falla, el contenido por defecto del HTML queda igual
+
     function toggleMenu(btn) {
       const links = document.querySelector('.nav-links');
       const open = links.style.display === 'flex';
