@@ -1,0 +1,25 @@
+{
+  "hero": {
+    "tag": "🇨🇳 China → Argentina · Sin escalas",
+    "title": "Remodelar tu casa\nnunca fue\ntan fácil",
+    "desc": "Exportamos directo desde China a Argentina, sin intermediarios. Paneles WPC, placas simil mármol UV y pisos SPC click al mejor precio del mercado. Calculá tu presupuesto al instante."
+  },
+  "stats": [
+    { "num": "+30", "label": "Diseños disponibles" },
+    { "num": "24h", "label": "Respuesta garantizada" },
+    { "num": "100%", "label": "Importado directo" }
+  ],
+  "cta": {
+    "title": "¿Tenés un proyecto en mente?\nCotizá gratis en segundos.",
+    "desc": "Sin registrarse. Sin datos personales. El presupuesto es tuyo al instante."
+  },
+  "whatsapp": "5491162992137",
+  "images": {
+    "ambiente": "/images/ambiente.jpg",
+    "wpc": "/images/wpc.jpg",
+    "wpc_ext": "/images/atornilladora.jpg",
+    "marmol": "/images/marmol.jpg",
+    "pisos": "/images/pisos.jpg",
+    "logo": "/images/logo.png"
+  }
+}
