@@ -7,32 +7,22 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --orange: #E87200;
-      --orange-dark: #c96600;
-      --bg: #f5f5f3;
-      --card: #ffffff;
-      --text: #1a1a1a;
-      --text-2: #666660;
-      --text-3: #999993;
-      --border: rgba(0,0,0,0.12);
-      --border-md: rgba(0,0,0,0.20);
-      --radius: 10px;
-      --shadow: 0 1px 4px rgba(0,0,0,0.08);
-      --green: #16a34a;
-      --red: #dc2626;
+      --orange: #E87200; --orange-dark: #c96600;
+      --bg: #f5f5f3; --card: #ffffff;
+      --text: #1a1a1a; --text-2: #666660; --text-3: #999993;
+      --border: rgba(0,0,0,0.11); --border-md: rgba(0,0,0,0.20);
+      --radius: 10px; --shadow: 0 1px 4px rgba(0,0,0,0.08);
+      --green: #16a34a; --red: #dc2626;
     }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1rem; }
-    .wrapper { max-width: 680px; margin: 0 auto; }
-
-    /* Header */
+    .wrapper { max-width: 720px; margin: 0 auto; }
     .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.75rem; }
     .logo { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
     .logo em { color: var(--orange); font-style: normal; }
-    .logo-sub { font-size: 11px; color: var(--text-3); margin-top: 2px; }
-    .view-link { font-size: 13px; color: var(--orange); text-decoration: none; padding: 7px 14px; border: 1px solid var(--orange); border-radius: 7px; transition: all .15s; }
+    .view-link { font-size: 13px; color: var(--orange); padding: 7px 14px; border: 1px solid var(--orange); border-radius: 7px; transition: all .15s; }
     .view-link:hover { background: var(--orange); color: #fff; }
 
-    /* Login */
+    /* LOGIN */
     #login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; }
     .login-card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 2rem; width: 100%; max-width: 340px; box-shadow: var(--shadow); text-align: center; }
     .login-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
@@ -43,55 +33,68 @@
     .btn-full:hover { background: var(--orange-dark); }
     .error-msg { font-size: 13px; color: var(--red); margin-top: 8px; min-height: 18px; }
 
-    /* Panel */
+    /* PANEL */
     #admin-panel { display: none; }
     .card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
     .card-title { font-size: 10px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 1rem; }
     .field { margin-bottom: 0.875rem; }
     .field:last-child { margin-bottom: 0; }
     .field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-2); margin-bottom: 5px; }
-    .field input[type=text], .field textarea { width: 100%; font-size: 14px; padding: 9px 11px; border: 0.5px solid var(--border-md); border-radius: 8px; font-family: inherit; color: var(--text); background: #fafaf8; outline: none; transition: border-color .15s; resize: vertical; }
-    .field input[type=text]:focus, .field textarea:focus { border-color: var(--orange); }
-    .field textarea { min-height: 72px; line-height: 1.5; }
+    .fld-input { width: 100%; font-size: 14px; padding: 9px 11px; border: 0.5px solid var(--border-md); border-radius: 8px; font-family: inherit; color: var(--text); background: #fafaf8; outline: none; transition: border-color .15s; }
+    .fld-input:focus { border-color: var(--orange); }
+    textarea.fld-input { resize: vertical; min-height: 68px; line-height: 1.5; }
     .hint { font-size: 11px; color: var(--text-3); margin-top: 4px; }
 
-    /* Stats rows */
-    .stat-row { display: grid; grid-template-columns: 1fr 2fr; gap: 8px; margin-bottom: 8px; }
-    .stat-row:last-child { margin-bottom: 0; }
+    /* STAT ROWS */
+    .stat-row { display: grid; grid-template-columns: 1fr 2fr; gap: 8px; margin-bottom: 8px; align-items: end; }
 
-    /* Image upload */
-    .img-upload { display: flex; align-items: center; gap: 12px; }
-    .img-preview { width: 72px; height: 54px; object-fit: cover; border-radius: 6px; border: 0.5px solid var(--border); background: #eeecea; flex-shrink: 0; }
-    .img-preview.placeholder { display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-    .upload-btn { flex: 1; }
-    .upload-btn label { display: block; width: 100%; text-align: center; padding: 9px 12px; border: 1.5px dashed var(--border-md); border-radius: 8px; font-size: 13px; color: var(--text-2); cursor: pointer; transition: all .15s; }
-    .upload-btn label:hover { border-color: var(--orange); color: var(--orange); }
-    .upload-btn input[type=file] { display: none; }
-    .uploading { font-size: 12px; color: var(--text-3); margin-top: 4px; }
+    /* IMAGE MANAGEMENT */
+    .img-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+    .img-item { display: flex; align-items: center; gap: 10px; background: #fafaf8; border: 0.5px solid var(--border); border-radius: 8px; padding: 8px; }
+    .img-thumb { width: 64px; height: 48px; object-fit: cover; border-radius: 5px; background: #eeecea; flex-shrink: 0; }
+    .img-url { flex: 1; font-size: 12px; color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .img-del { background: none; border: 1px solid #fca5a5; color: var(--red); border-radius: 6px; padding: 4px 10px; font-size: 12px; cursor: pointer; white-space: nowrap; transition: all .15s; flex-shrink: 0; }
+    .img-del:hover { background: var(--red); color: #fff; }
+    .upload-zone label { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1.5px dashed var(--border-md); border-radius: 8px; font-size: 13px; color: var(--text-2); cursor: pointer; transition: all .15s; }
+    .upload-zone label:hover { border-color: var(--orange); color: var(--orange); }
+    .upload-zone input[type=file] { display: none; }
+    .upload-status { font-size: 12px; color: var(--text-3); margin-top: 5px; min-height: 16px; }
 
-    /* Save bar */
+    /* PRODUCT ACCORDION */
+    .prod-card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius); margin-bottom: 0.75rem; box-shadow: var(--shadow); overflow: hidden; }
+    .prod-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; cursor: pointer; user-select: none; }
+    .prod-header:hover { background: #fafaf8; }
+    .prod-header-left { display: flex; align-items: center; gap: 10px; }
+    .prod-thumb { width: 40px; height: 30px; object-fit: cover; border-radius: 4px; background: #eeecea; flex-shrink: 0; }
+    .prod-hname { font-size: 14px; font-weight: 600; }
+    .prod-hcat { font-size: 11px; color: var(--text-3); }
+    .prod-chevron { font-size: 16px; color: var(--text-3); transition: transform .2s; }
+    .prod-chevron.open { transform: rotate(180deg); }
+    .prod-body { display: none; padding: 0 1.25rem 1.25rem; border-top: 0.5px solid var(--border); padding-top: 1rem; }
+    .prod-body.open { display: block; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    /* SAVE BAR */
     .save-bar { position: sticky; bottom: 1rem; display: flex; gap: 10px; align-items: center; background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 0.875rem 1.25rem; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
     .btn-save { flex: 1; padding: 11px; background: var(--orange); color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background .15s; }
     .btn-save:hover { background: var(--orange-dark); }
     .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
-    .save-status { font-size: 13px; font-weight: 500; min-width: 100px; text-align: right; }
+    .save-status { font-size: 13px; font-weight: 500; min-width: 120px; text-align: right; }
     .save-status.ok { color: var(--green); }
     .save-status.err { color: var(--red); }
-
-    .logout { font-size: 12px; color: var(--text-3); cursor: pointer; padding: 4px 8px; border-radius: 5px; border: 1px solid var(--border); background: none; font-family: inherit; }
+    .logout { font-size: 12px; color: var(--text-3); cursor: pointer; padding: 6px 10px; border-radius: 5px; border: 1px solid var(--border); background: none; font-family: inherit; }
     .logout:hover { color: var(--red); border-color: var(--red); }
+
+    .section-sep { font-size: 11px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.8px; margin: 1.5rem 0 0.75rem; }
   </style>
 </head>
 <body>
 <div class="wrapper">
-
   <div class="header">
-    <div>
-      <div class="logo">DRAX<em>.</em> <span style="font-size:13px;font-weight:400;color:var(--text-3)">Admin</span></div>
-    </div>
+    <div class="logo">DRAX<em>.</em> <span style="font-size:13px;font-weight:400;color:var(--text-3)">Admin</span></div>
     <div style="display:flex;gap:8px;align-items:center">
       <a class="view-link" href="/" target="_blank">Ver landing ↗</a>
-      <button class="logout" id="btn-logout" style="display:none" onclick="logout()">Cerrar sesión</button>
+      <button class="logout" id="btn-logout" style="display:none" onclick="logout()">Salir</button>
     </div>
   </div>
 
@@ -99,7 +102,7 @@
   <div id="login-screen">
     <div class="login-card">
       <h2>Panel Admin</h2>
-      <p>Ingresá la contraseña para editar la landing</p>
+      <p>Contraseña para editar la landing</p>
       <input class="login-input" type="password" id="pwd-input" placeholder="••••••••" autocomplete="current-password">
       <button class="btn-full" onclick="doLogin()">Entrar</button>
       <div class="error-msg" id="login-error"></div>
@@ -109,234 +112,388 @@
   <!-- PANEL -->
   <div id="admin-panel">
 
-    <!-- Hero -->
+    <!-- HERO -->
     <div class="card">
       <div class="card-title">Hero — Texto principal</div>
       <div class="field">
-        <label>Tag (texto pequeño arriba del título)</label>
-        <input type="text" id="f-hero-tag">
+        <label>Tag (pastilla pequeña)</label>
+        <input type="text" class="fld-input" id="f-hero-tag">
       </div>
       <div class="field">
-        <label>Título principal</label>
-        <textarea id="f-hero-title" rows="3"></textarea>
+        <label>Título</label>
+        <textarea class="fld-input" id="f-hero-title" rows="3"></textarea>
         <div class="hint">Usá \n para saltos de línea</div>
       </div>
       <div class="field">
         <label>Descripción</label>
-        <textarea id="f-hero-desc" rows="3"></textarea>
+        <textarea class="fld-input" id="f-hero-desc" rows="3"></textarea>
       </div>
     </div>
 
-    <!-- Stats -->
+    <!-- HERO SLIDES -->
     <div class="card">
-      <div class="card-title">Estadísticas (barra debajo del hero)</div>
+      <div class="card-title">Hero — Imágenes del carrusel</div>
+      <div class="img-list" id="hero-slides-list"></div>
+      <div class="upload-zone">
+        <label>
+          <span>➕ Agregar foto al carrusel</span>
+          <input type="file" accept="image/*" onchange="uploadHeroSlide(this)">
+        </label>
+        <div class="upload-status" id="up-hero-slide"></div>
+      </div>
+    </div>
+
+    <!-- LOGO -->
+    <div class="card">
+      <div class="card-title">Logo (navbar)</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <img id="prev-logo" src="/images/logo.png" style="height:36px;width:auto;border-radius:4px;background:#111;padding:4px" onerror="this.style.display='none'">
+        <div class="upload-zone" style="flex:1">
+          <label>
+            <span>📁 Reemplazar logo</span>
+            <input type="file" accept="image/*" onchange="uploadSingle('logo',this,'prev-logo')">
+          </label>
+          <div class="upload-status" id="up-logo"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="card">
+      <div class="card-title">Estadísticas</div>
       <div id="stats-fields"></div>
     </div>
 
-    <!-- CTA Banner -->
+    <!-- CTA + WSP -->
     <div class="card">
       <div class="card-title">Banner CTA</div>
       <div class="field">
         <label>Título</label>
-        <textarea id="f-cta-title" rows="2"></textarea>
+        <textarea class="fld-input" id="f-cta-title" rows="2"></textarea>
         <div class="hint">Usá \n para saltos de línea</div>
       </div>
       <div class="field">
         <label>Descripción</label>
-        <input type="text" id="f-cta-desc">
+        <input type="text" class="fld-input" id="f-cta-desc">
+      </div>
+      <div class="field">
+        <label>Número de WhatsApp (con código de país, sin +)</label>
+        <input type="text" class="fld-input" id="f-whatsapp" placeholder="5491162992137">
       </div>
     </div>
 
-    <!-- WhatsApp -->
-    <div class="card">
-      <div class="card-title">WhatsApp</div>
-      <div class="field">
-        <label>Número (sin + ni espacios, con código de país)</label>
-        <input type="text" id="f-whatsapp" placeholder="5491162992137">
-        <div class="hint">Ejemplo: 5491162992137</div>
-      </div>
-    </div>
+    <!-- PRODUCTOS -->
+    <div class="section-sep">Productos</div>
+    <div id="products-section"></div>
 
-    <!-- Imágenes -->
-    <div class="card">
-      <div class="card-title">Imágenes</div>
-      <div class="field">
-        <label>Logo (navbar)</label>
-        <div class="img-upload">
-          <img class="img-preview" id="prev-logo" src="/images/logo.png" onerror="this.style.display='none'">
-          <div class="upload-btn">
-            <label>📁 Subir logo.png<input type="file" accept="image/*" onchange="uploadImage('logo', this)"></label>
-            <div class="uploading" id="up-logo"></div>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <label>Imagen hero (ambiente)</label>
-        <div class="img-upload">
-          <img class="img-preview" id="prev-ambiente" src="/images/ambiente.jpg" onerror="this.style.display='none'">
-          <div class="upload-btn">
-            <label>📁 Subir imagen<input type="file" accept="image/*" onchange="uploadImage('ambiente', this)"></label>
-            <div class="uploading" id="up-ambiente"></div>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <label>Panel WPC Interior</label>
-        <div class="img-upload">
-          <img class="img-preview" id="prev-wpc" src="/images/wpc.jpg" onerror="this.style.display='none'">
-          <div class="upload-btn">
-            <label>📁 Subir imagen<input type="file" accept="image/*" onchange="uploadImage('wpc', this)"></label>
-            <div class="uploading" id="up-wpc"></div>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <label>Panel WPC Exterior</label>
-        <div class="img-upload">
-          <img class="img-preview" id="prev-wpc_ext" src="/images/atornilladora.jpg" onerror="this.style.display='none'">
-          <div class="upload-btn">
-            <label>📁 Subir imagen<input type="file" accept="image/*" onchange="uploadImage('wpc_ext', this)"></label>
-            <div class="uploading" id="up-wpc_ext"></div>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <label>Placa UV Simil Mármol</label>
-        <div class="img-upload">
-          <img class="img-preview" id="prev-marmol" src="/images/marmol.jpg" onerror="this.style.display='none'">
-          <div class="upload-btn">
-            <label>📁 Subir imagen<input type="file" accept="image/*" onchange="uploadImage('marmol', this)"></label>
-            <div class="uploading" id="up-marmol"></div>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <label>Pisos SPC Click</label>
-        <div class="img-upload">
-          <img class="img-preview" id="prev-pisos" src="/images/pisos.jpg" onerror="this.style.display='none'">
-          <div class="upload-btn">
-            <label>📁 Subir imagen<input type="file" accept="image/*" onchange="uploadImage('pisos', this)"></label>
-            <div class="uploading" id="up-pisos"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Save bar -->
+    <!-- SAVE BAR -->
     <div class="save-bar">
-      <button class="btn-save" id="btn-save" onclick="saveContent()">Guardar cambios</button>
+      <button class="btn-save" id="btn-save" onclick="saveContent()">Guardar todos los cambios</button>
       <div class="save-status" id="save-status"></div>
     </div>
 
-  </div><!-- /admin-panel -->
-</div><!-- /wrapper -->
+  </div>
+</div>
 
 <script>
   let pwd = '';
   let content = {};
 
-  // ── LOGIN ──
-  document.getElementById('pwd-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') doLogin();
-  });
+  // ── LOGIN ────────────────────────────────────────────────
+  document.getElementById('pwd-input').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
   async function doLogin() {
     const p = document.getElementById('pwd-input').value.trim();
     if (!p) return;
-    // Verificamos contra el servidor intentando cargar el contenido con esa contraseña
     try {
       const r = await fetch('/api/content');
-      if (!r.ok) throw new Error();
-      // Ahora verificamos la password con un POST vacío
+      const data = await r.json();
+      // Test password
       const test = await fetch('/api/content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-admin-pwd': p },
-        body: JSON.stringify(await r.json())
+        body: JSON.stringify(data)
       });
-      if (test.status === 401) {
-        document.getElementById('login-error').textContent = 'Contraseña incorrecta';
-        return;
-      }
+      if (test.status === 401) { document.getElementById('login-error').textContent = 'Contraseña incorrecta'; return; }
       pwd = p;
       document.getElementById('login-error').textContent = '';
-      loadPanel();
-    } catch {
-      document.getElementById('login-error').textContent = 'Error conectando al servidor';
-    }
+      loadPanel(data);
+    } catch { document.getElementById('login-error').textContent = 'Error de conexión'; }
   }
 
   function logout() {
-    pwd = '';
+    pwd = ''; content = {};
     document.getElementById('admin-panel').style.display = 'none';
     document.getElementById('login-screen').style.display = 'flex';
     document.getElementById('btn-logout').style.display = 'none';
     document.getElementById('pwd-input').value = '';
   }
 
-  // ── CARGAR PANEL ──
-  async function loadPanel() {
-    const r = await fetch('/api/content');
-    content = await r.json();
+  // ── LOAD PANEL ───────────────────────────────────────────
+  function loadPanel(data) {
+    content = data;
 
-    // Hero
-    document.getElementById('f-hero-tag').value = content.hero?.tag || '';
+    // Hero texto
+    document.getElementById('f-hero-tag').value   = content.hero?.tag || '';
     document.getElementById('f-hero-title').value = (content.hero?.title || '').replace(/<br>/g, '\n');
-    document.getElementById('f-hero-desc').value = content.hero?.desc || '';
+    document.getElementById('f-hero-desc').value  = content.hero?.desc || '';
+
+    // Hero slides
+    renderSlidesList(content.hero?.slides || []);
 
     // Stats
-    const statsEl = document.getElementById('stats-fields');
-    statsEl.innerHTML = (content.stats || []).map((s, i) => `
-      <div class="stat-row">
-        <div><label style="font-size:11px;color:var(--text-3)">Número</label>
-          <input type="text" id="stat-num-${i}" value="${s.num}" style="width:100%;font-size:14px;padding:7px 10px;border:0.5px solid var(--border-md);border-radius:7px;font-family:inherit;outline:none;background:#fafaf8"></div>
-        <div><label style="font-size:11px;color:var(--text-3)">Etiqueta</label>
-          <input type="text" id="stat-lbl-${i}" value="${s.label}" style="width:100%;font-size:14px;padding:7px 10px;border:0.5px solid var(--border-md);border-radius:7px;font-family:inherit;outline:none;background:#fafaf8"></div>
-      </div>
-    `).join('');
+    renderStatsFields(content.stats || []);
 
-    // CTA
+    // CTA / WSP
     document.getElementById('f-cta-title').value = (content.cta?.title || '').replace(/<br>/g, '\n');
-    document.getElementById('f-cta-desc').value = content.cta?.desc || '';
+    document.getElementById('f-cta-desc').value  = content.cta?.desc || '';
+    document.getElementById('f-whatsapp').value  = content.whatsapp || '';
 
-    // WhatsApp
-    document.getElementById('f-whatsapp').value = content.whatsapp || '';
+    // Productos
+    renderProductsSection(content.products || []);
 
     // Mostrar panel
     document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('admin-panel').style.display = 'block';
-    document.getElementById('btn-logout').style.display = 'block';
+    document.getElementById('admin-panel').style.display  = 'block';
+    document.getElementById('btn-logout').style.display   = 'block';
   }
 
-  // ── GUARDAR ──
+  // ── HERO SLIDES ──────────────────────────────────────────
+  function renderSlidesList(slides) {
+    const el = document.getElementById('hero-slides-list');
+    el.innerHTML = slides.length ? slides.map((url, i) => `
+      <div class="img-item" id="slide-item-${i}">
+        <img class="img-thumb" src="${url}" onerror="this.style.background='#ccc'">
+        <span class="img-url">${url}</span>
+        <button class="img-del" onclick="deleteHeroSlide(${i})">Eliminar</button>
+      </div>
+    `).join('') : '<p style="font-size:13px;color:var(--text-3)">Sin imágenes aún. Subí la primera foto del carrusel.</p>';
+  }
+
+  async function uploadHeroSlide(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const status = document.getElementById('up-hero-slide');
+    status.textContent = 'Subiendo…';
+    const form = new FormData();
+    form.append('image', file);
+    try {
+      const r = await fetch('/api/upload/hero', { method:'POST', headers:{'x-admin-pwd':pwd}, body:form });
+      const d = await r.json();
+      if (d.ok) {
+        if (!content.hero) content.hero = {};
+        if (!content.hero.slides) content.hero.slides = [];
+        content.hero.slides.push(d.url);
+        renderSlidesList(content.hero.slides);
+        await saveContent();
+        status.textContent = '✓ Agregada';
+        setTimeout(() => status.textContent = '', 2000);
+      } else { status.textContent = 'Error al subir'; }
+    } catch { status.textContent = 'Error de red'; }
+    input.value = '';
+  }
+
+  async function deleteHeroSlide(idx) {
+    const slides = content.hero?.slides || [];
+    const url = slides[idx];
+    if (!url) return;
+    if (!confirm('¿Eliminar esta imagen del carrusel?')) return;
+    // Eliminar archivo
+    await fetch('/api/image?url=' + encodeURIComponent(url), { method:'DELETE', headers:{'x-admin-pwd':pwd} });
+    content.hero.slides.splice(idx, 1);
+    renderSlidesList(content.hero.slides);
+    await saveContent();
+  }
+
+  // ── LOGO ─────────────────────────────────────────────────
+  async function uploadSingle(key, input, previewId) {
+    const file = input.files[0];
+    if (!file) return;
+    const status = document.getElementById('up-' + key);
+    status.textContent = 'Subiendo…';
+    const form = new FormData();
+    form.append('image', file);
+    try {
+      const r = await fetch('/api/upload/' + key, { method:'POST', headers:{'x-admin-pwd':pwd}, body:form });
+      const d = await r.json();
+      if (d.ok) {
+        const prev = document.getElementById(previewId);
+        if (prev) { prev.src = d.url + '?t=' + Date.now(); prev.style.display = 'block'; }
+        content.logo = d.url;
+        await saveContent();
+        status.textContent = '✓ Guardado';
+        setTimeout(() => status.textContent = '', 2000);
+      } else { status.textContent = 'Error'; }
+    } catch { status.textContent = 'Error de red'; }
+    input.value = '';
+  }
+
+  // ── STATS ────────────────────────────────────────────────
+  function renderStatsFields(stats) {
+    document.getElementById('stats-fields').innerHTML = stats.map((s, i) => `
+      <div class="stat-row">
+        <div>
+          <label style="font-size:11px;color:var(--text-3)">Número</label>
+          <input type="text" class="fld-input" id="stat-num-${i}" value="${s.num}">
+        </div>
+        <div>
+          <label style="font-size:11px;color:var(--text-3)">Etiqueta</label>
+          <input type="text" class="fld-input" id="stat-lbl-${i}" value="${s.label}">
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ── PRODUCTOS ────────────────────────────────────────────
+  function renderProductsSection(products) {
+    const el = document.getElementById('products-section');
+    el.innerHTML = products.map((p, pi) => `
+      <div class="prod-card">
+        <div class="prod-header" onclick="toggleProd(${pi})">
+          <div class="prod-header-left">
+            <img class="prod-thumb" id="prod-thumb-${pi}" src="${p.images[0] || ''}" onerror="this.style.background='#eeecea'">
+            <div>
+              <div class="prod-hname">${p.name}</div>
+              <div class="prod-hcat">${p.cat}</div>
+            </div>
+          </div>
+          <span class="prod-chevron" id="chev-${pi}">▾</span>
+        </div>
+        <div class="prod-body" id="prod-body-${pi}">
+          <div class="row2" style="margin-bottom:10px">
+            <div class="field" style="margin:0">
+              <label>Categoría</label>
+              <input type="text" class="fld-input" id="p-cat-${pi}" value="${p.cat}">
+            </div>
+            <div class="field" style="margin:0">
+              <label>Nombre</label>
+              <input type="text" class="fld-input" id="p-name-${pi}" value="${p.name}">
+            </div>
+          </div>
+          <div class="field">
+            <label>Descripción</label>
+            <textarea class="fld-input" id="p-desc-${pi}" rows="3">${p.desc}</textarea>
+          </div>
+          <div class="field">
+            <label>Variedades (separadas por coma)</label>
+            <input type="text" class="fld-input" id="p-vars-${pi}" value="${p.variants.join(', ')}">
+            <div class="hint">Ej: Calacatta, Carrara, Marquina gold, +8 diseños</div>
+          </div>
+          <div class="field">
+            <label>Fotos del producto</label>
+            <div class="img-list" id="prod-imgs-${pi}"></div>
+            <div class="upload-zone">
+              <label>
+                <span>➕ Agregar foto</span>
+                <input type="file" accept="image/*" onchange="uploadProductImg(${pi}, this)">
+              </label>
+              <div class="upload-status" id="up-prod-${pi}"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    // Render imágenes de cada producto
+    products.forEach((p, pi) => renderProductImgs(pi, p.images));
+  }
+
+  function renderProductImgs(pi, images) {
+    const el = document.getElementById('prod-imgs-' + pi);
+    if (!el) return;
+    el.innerHTML = images.length ? images.map((url, ii) => `
+      <div class="img-item">
+        <img class="img-thumb" src="${url}" onerror="this.style.background='#eeecea'">
+        <span class="img-url">${url}</span>
+        <button class="img-del" onclick="deleteProductImg(${pi},${ii})">Eliminar</button>
+      </div>
+    `).join('') : '<p style="font-size:12px;color:var(--text-3)">Sin fotos aún.</p>';
+  }
+
+  function toggleProd(pi) {
+    const body = document.getElementById('prod-body-' + pi);
+    const chev = document.getElementById('chev-' + pi);
+    const open = body.classList.contains('open');
+    body.classList.toggle('open', !open);
+    chev.classList.toggle('open', !open);
+  }
+
+  async function uploadProductImg(pi, input) {
+    const file = input.files[0];
+    if (!file) return;
+    const status = document.getElementById('up-prod-' + pi);
+    status.textContent = 'Subiendo…';
+    const form = new FormData();
+    form.append('image', file);
+    const key = 'prod_' + (content.products[pi]?.id || pi);
+    try {
+      const r = await fetch('/api/upload/' + key, { method:'POST', headers:{'x-admin-pwd':pwd}, body:form });
+      const d = await r.json();
+      if (d.ok) {
+        if (!content.products[pi].images) content.products[pi].images = [];
+        content.products[pi].images.push(d.url);
+        renderProductImgs(pi, content.products[pi].images);
+        // Actualizar thumb header
+        const thumb = document.getElementById('prod-thumb-' + pi);
+        if (thumb && content.products[pi].images.length === 1) thumb.src = d.url;
+        await saveContent();
+        status.textContent = '✓ Agregada';
+        setTimeout(() => status.textContent = '', 2000);
+      } else { status.textContent = 'Error'; }
+    } catch { status.textContent = 'Error de red'; }
+    input.value = '';
+  }
+
+  async function deleteProductImg(pi, ii) {
+    const url = content.products[pi]?.images[ii];
+    if (!url) return;
+    if (!confirm('¿Eliminar esta foto?')) return;
+    await fetch('/api/image?url=' + encodeURIComponent(url), { method:'DELETE', headers:{'x-admin-pwd':pwd} });
+    content.products[pi].images.splice(ii, 1);
+    renderProductImgs(pi, content.products[pi].images);
+    await saveContent();
+  }
+
+  // ── GUARDAR ──────────────────────────────────────────────
   async function saveContent() {
-    const btn = document.getElementById('btn-save');
+    const btn    = document.getElementById('btn-save');
     const status = document.getElementById('save-status');
     btn.disabled = true;
     status.textContent = 'Guardando…';
-    status.className = 'save-status';
+    status.className   = 'save-status';
 
+    // Recoger stats
     const statsCount = content.stats?.length || 0;
-    const stats = [];
-    for (let i = 0; i < statsCount; i++) {
-      stats.push({
-        num: document.getElementById(`stat-num-${i}`)?.value || '',
-        label: document.getElementById(`stat-lbl-${i}`)?.value || ''
-      });
-    }
+    const stats = Array.from({ length: statsCount }, (_, i) => ({
+      num:   document.getElementById(`stat-num-${i}`)?.value || '',
+      label: document.getElementById(`stat-lbl-${i}`)?.value || ''
+    }));
+
+    // Recoger productos
+    const products = (content.products || []).map((p, pi) => ({
+      ...p,
+      cat:      document.getElementById(`p-cat-${pi}`)?.value  || p.cat,
+      name:     document.getElementById(`p-name-${pi}`)?.value || p.name,
+      desc:     document.getElementById(`p-desc-${pi}`)?.value || p.desc,
+      variants: (document.getElementById(`p-vars-${pi}`)?.value || '')
+                  .split(',').map(v => v.trim()).filter(Boolean),
+    }));
 
     const updated = {
       ...content,
       hero: {
-        tag: document.getElementById('f-hero-tag').value,
+        ...content.hero,
+        tag:   document.getElementById('f-hero-tag').value,
         title: document.getElementById('f-hero-title').value,
-        desc: document.getElementById('f-hero-desc').value
+        desc:  document.getElementById('f-hero-desc').value,
       },
       stats,
       cta: {
         title: document.getElementById('f-cta-title').value,
-        desc: document.getElementById('f-cta-desc').value
+        desc:  document.getElementById('f-cta-desc').value,
       },
-      whatsapp: document.getElementById('f-whatsapp').value
+      whatsapp: document.getElementById('f-whatsapp').value,
+      products,
     };
 
     try {
@@ -348,53 +505,17 @@
       if (r.ok) {
         content = updated;
         status.textContent = '✓ Guardado';
-        status.className = 'save-status ok';
+        status.className   = 'save-status ok';
       } else {
         status.textContent = 'Error al guardar';
-        status.className = 'save-status err';
+        status.className   = 'save-status err';
       }
     } catch {
       status.textContent = 'Error de red';
-      status.className = 'save-status err';
+      status.className   = 'save-status err';
     }
     btn.disabled = false;
     setTimeout(() => { status.textContent = ''; status.className = 'save-status'; }, 3000);
-  }
-
-  // ── UPLOAD IMAGEN ──
-  async function uploadImage(key, input) {
-    const file = input.files[0];
-    if (!file) return;
-    const statusEl = document.getElementById('up-' + key);
-    statusEl.textContent = 'Subiendo…';
-
-    const form = new FormData();
-    form.append('image', file);
-
-    try {
-      const r = await fetch('/api/upload/' + key, {
-        method: 'POST',
-        headers: { 'x-admin-pwd': pwd },
-        body: form
-      });
-      const data = await r.json();
-      if (data.ok) {
-        // Actualizar preview
-        const prev = document.getElementById('prev-' + key);
-        if (prev) { prev.src = data.url + '?t=' + Date.now(); prev.style.display = 'block'; }
-        // Actualizar content.images
-        if (!content.images) content.images = {};
-        content.images[key] = data.url;
-        // Guardar automáticamente
-        await saveContent();
-        statusEl.textContent = '✓ Subida';
-        setTimeout(() => statusEl.textContent = '', 2000);
-      } else {
-        statusEl.textContent = 'Error al subir';
-      }
-    } catch {
-      statusEl.textContent = 'Error de red';
-    }
   }
 </script>
 </body>
