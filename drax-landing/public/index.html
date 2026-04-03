@@ -4,18 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DRAX Import — Revestimientos y Pisos Premium</title>
-  <meta name="description" content="Revestimientos WPC, placas simil mármol UV y pisos SPC click. Importado directo, calidad premium, precio mayorista.">
+  <meta name="description" content="Revestimientos WPC, placas simil mármol UV y pisos SPC click. Importado directo de China, calidad premium, precio mayorista.">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --orange: #E87200;
       --orange-dark: #c96600;
-      --orange-light: #fff4e6;
-      --black: #0f0f0d;
+      --orange-light: rgba(232,114,0,0.12);
       --text: #1a1a1a;
-      --text-secondary: #555550;
-      --text-tertiary: #888880;
+      --text-2: #555550;
+      --text-3: #888880;
       --bg: #ffffff;
       --bg-soft: #f8f7f5;
       --bg-card: #ffffff;
@@ -24,618 +22,175 @@
       --wsp-dark: #1ebe5d;
       --radius: 12px;
       --radius-lg: 18px;
-      --shadow-card: 0 2px 8px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+      --shadow: 0 2px 8px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.14);
       --max-w: 1120px;
     }
-
     @media (prefers-color-scheme: dark) {
       :root {
-        --black: #f0efea;
-        --text: #f0efea;
-        --text-secondary: #a09e97;
-        --text-tertiary: #6e6d68;
-        --bg: #121210;
-        --bg-soft: #1a1a18;
-        --bg-card: #1e1e1c;
+        --text: #f0efea; --text-2: #a09e97; --text-3: #6e6d68;
+        --bg: #121210; --bg-soft: #1a1a18; --bg-card: #1e1e1c;
         --border: rgba(255,255,255,0.09);
-        --orange-light: #2a1800;
-        --shadow-card: 0 2px 8px rgba(0,0,0,0.3);
+        --shadow: 0 2px 8px rgba(0,0,0,0.3);
         --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
       }
     }
-
     html { scroll-behavior: smooth; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; }
     a { color: inherit; text-decoration: none; }
 
     /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: #0f0f0d;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .nav-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      height: 62px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .logo {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-    .logo em { color: var(--orange); font-style: normal; }
-    .logo-sub { font-size: 11px; color: var(--text-tertiary); font-weight: 400; margin-top: 2px; }
+    nav { position: sticky; top: 0; z-index: 100; background: #0f0f0d; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem; height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .nav-logo { height: 36px; width: auto; display: block; }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.75rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 14px;
-      color: rgba(255,255,255,0.65);
-      transition: color .15s;
-    }
+    .nav-logo-fallback { display: none; font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
+    .nav-logo-fallback em { color: var(--orange); font-style: normal; }
+    .nav-links { display: flex; align-items: center; gap: 1.75rem; list-style: none; }
+    .nav-links a { font-size: 14px; color: rgba(255,255,255,0.65); transition: color .15s; }
     .nav-links a:hover { color: var(--orange); }
-    .nav-cta {
-      background: var(--orange);
-      color: #fff !important;
-      padding: 8px 18px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      transition: background .15s;
-      white-space: nowrap;
-    }
-    .nav-cta:hover { background: var(--orange-dark) !important; color: #fff !important; }
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-      background: none;
-      border: none;
-    }
-    .hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: all .2s;
-    }
-    @media (max-width: 720px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-    }
+    .nav-cta { background: var(--orange) !important; color: #fff !important; padding: 8px 18px; border-radius: 8px; font-weight: 600 !important; transition: background .15s !important; }
+    .nav-cta:hover { background: var(--orange-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; }
+    @media (max-width: 720px) { .nav-links { display: none; } .hamburger { display: flex; } }
 
-    /* ── HERO ── */
-    .hero {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 5rem 1.5rem 4rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
+    /* ── HERO CAROUSEL ── */
+    .hero-wrap { position: relative; width: 100%; height: 88vh; max-height: 720px; min-height: 480px; overflow: hidden; background: #111; }
+    .hc-slides { position: absolute; inset: 0; }
+    .hc-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s ease; }
+    .hc-slide.active { opacity: 1; }
+    .hc-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* Gradiente izquierda para legibilidad del texto */
+    .hc-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.40) 45%, rgba(0,0,0,0.05) 100%);
+    }
+    /* Texto encima de la imagen */
+    .hc-text {
+      position: absolute; left: 0; top: 0; bottom: 0; z-index: 3;
+      width: 55%; max-width: 580px;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 3rem 4rem;
+      color: #fff;
     }
     .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--orange);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      background: var(--orange-light);
-      padding: 5px 12px;
-      border-radius: 20px;
-      margin-bottom: 1.25rem;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+      background: rgba(232,114,0,0.25); color: #ffb366;
+      padding: 5px 12px; border-radius: 20px; margin-bottom: 1.25rem;
+      border: 1px solid rgba(232,114,0,0.4); width: fit-content;
     }
-    .hero-tag::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: var(--orange);
-      border-radius: 50%;
+    .hc-text h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1.25rem; text-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+    .hc-text h1 span { color: var(--orange); }
+    .hc-text p { font-size: 16px; color: rgba(255,255,255,0.82); line-height: 1.6; margin-bottom: 2rem; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    /* Controles carousel */
+    .hc-controls { position: absolute; bottom: 1.5rem; left: 0; right: 0; z-index: 4; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .hc-arrow { width: 36px; height: 36px; border-radius: 50%; border: none; background: rgba(255,255,255,0.18); color: #fff; font-size: 18px; cursor: pointer; backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; transition: background .15s; line-height: 1; }
+    .hc-arrow:hover { background: rgba(255,255,255,0.35); }
+    .hc-dots { display: flex; gap: 6px; align-items: center; }
+    .hc-dot { width: 7px; height: 7px; background: rgba(255,255,255,0.4); border-radius: 50%; cursor: pointer; transition: all .25s; border: none; }
+    .hc-dot.active { background: #fff; width: 20px; border-radius: 4px; }
+    @media (max-width: 700px) {
+      .hc-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0.15) 30%, rgba(0,0,0,0.75) 100%); }
+      .hc-text { width: 100%; top: auto; bottom: 0; padding: 1.5rem 1.5rem 5rem; justify-content: flex-end; }
+      .hero-wrap { height: 80vh; }
     }
-    .hero h1 {
-      font-size: clamp(2.2rem, 4vw, 3.2rem);
-      font-weight: 700;
-      line-height: 1.12;
-      letter-spacing: -1.5px;
-      color: var(--text);
-      margin-bottom: 1.25rem;
-    }
-    .hero h1 span { color: var(--orange); }
-    .hero-desc {
-      font-size: 17px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 2rem;
-      max-width: 460px;
-    }
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--orange);
-      color: #fff;
-      padding: 14px 24px;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      transition: background .15s, transform .1s;
-    }
+
+    /* ── BUTTONS ── */
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; padding: 13px 22px; border-radius: 10px; font-size: 15px; font-weight: 600; transition: background .15s, transform .1s; }
     .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
-    .btn-wsp {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--wsp);
-      color: #fff;
-      padding: 14px 24px;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      transition: background .15s, transform .1s;
-    }
+    .btn-wsp { display: inline-flex; align-items: center; gap: 8px; background: var(--wsp); color: #fff; padding: 13px 22px; border-radius: 10px; font-size: 15px; font-weight: 600; transition: background .15s, transform .1s; }
     .btn-wsp:hover { background: var(--wsp-dark); transform: translateY(-1px); }
-    .hero-img {
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      aspect-ratio: 4/3;
-      background: var(--bg-soft);
-    }
-    .hero-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .hero-img-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #e8e5e0 0%, #d4d0cb 100%);
-      color: var(--text-tertiary);
-      font-size: 13px;
-      letter-spacing: 0.5px;
-    }
-    @media (max-width: 800px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-        padding: 3rem 1.5rem;
-        text-align: center;
-      }
-      .hero-tag { margin-left: auto; margin-right: auto; }
-      .hero-desc { margin-left: auto; margin-right: auto; }
-      .hero-actions { justify-content: center; }
-      .hero-img { max-width: 480px; margin: 0 auto; }
-    }
 
-    /* ── STATS BAR ── */
-    .stats-bar {
-      background: var(--bg-soft);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .stats-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    .stat {
-      text-align: center;
-    }
-    .stat-num {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--orange);
-      line-height: 1;
-      letter-spacing: -1px;
-    }
-    .stat-label {
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-top: 4px;
-    }
-    @media (max-width: 600px) {
-      .stats-inner { grid-template-columns: 1fr 1fr; }
-    }
+    /* ── STATS ── */
+    .stats-bar { background: var(--bg-soft); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stats-inner { max-width: var(--max-w); margin: 0 auto; padding: 2rem 1.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 700; color: var(--orange); line-height: 1; letter-spacing: -1px; }
+    .stat-label { font-size: 13px; color: var(--text-2); margin-top: 4px; }
+    @media (max-width: 500px) { .stats-inner { grid-template-columns: 1fr 1fr; } }
 
-    /* ── SECTION HEADER ── */
-    .section {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 5rem 1.5rem;
-    }
-    .section-header {
-      margin-bottom: 3rem;
-    }
-    .section-tag {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--orange);
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      margin-bottom: 0.75rem;
-    }
-    .section-title {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 700;
-      letter-spacing: -0.8px;
-      line-height: 1.2;
-      color: var(--text);
-    }
-    .section-desc {
-      font-size: 16px;
-      color: var(--text-secondary);
-      margin-top: 0.75rem;
-      max-width: 520px;
-    }
+    /* ── SECTION ── */
+    .section { max-width: var(--max-w); margin: 0 auto; padding: 5rem 1.5rem; }
+    .section-tag { font-size: 11px; font-weight: 600; color: var(--orange); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 0.75rem; }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -0.8px; line-height: 1.2; color: var(--text); }
+    .section-desc { font-size: 16px; color: var(--text-2); margin-top: 0.75rem; max-width: 520px; }
+    .section-header { margin-bottom: 3rem; }
 
-    /* ── PRODUCTOS GRID ── */
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-    .product-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-      transition: transform .2s, box-shadow .2s;
-    }
-    .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-    .product-img {
-      aspect-ratio: 4/3;
-      background: var(--bg-soft);
-      overflow: hidden;
-    }
-    .product-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform .3s;
-    }
-    .product-card:hover .product-img img { transform: scale(1.04); }
-    .product-img-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      background: linear-gradient(135deg, #ece9e4 0%, #ddd9d3 100%);
-    }
-    .product-body {
-      padding: 1.25rem;
-    }
-    .product-cat {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--orange);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 6px;
-    }
-    .product-name {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.3;
-      margin-bottom: 8px;
-    }
-    .product-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.55;
-      margin-bottom: 1rem;
-    }
-    .product-variants {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-bottom: 1rem;
-    }
-    .variant-chip {
-      font-size: 11px;
-      padding: 3px 9px;
-      background: var(--bg-soft);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      color: var(--text-secondary);
-    }
-    .product-cta {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 10px;
-      border: 1.5px solid var(--orange);
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--orange);
-      transition: all .15s;
-    }
-    .product-cta:hover {
-      background: var(--orange);
-      color: #fff;
-    }
+    /* ── PRODUCTOS ── */
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+    .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+    /* Gallery por producto */
+    .product-gallery { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--bg-soft); }
+    .pg-track { display: flex; overflow-x: scroll; scroll-snap-type: x mandatory; scrollbar-width: none; height: 100%; }
+    .pg-track::-webkit-scrollbar { display: none; }
+    .pg-img { scroll-snap-align: start; flex-shrink: 0; width: 100%; height: 100%; object-fit: cover; }
+    .pg-dots { position: absolute; bottom: 8px; left: 0; right: 0; display: flex; justify-content: center; gap: 5px; z-index: 2; }
+    .pg-dot { width: 6px; height: 6px; background: rgba(255,255,255,0.5); border-radius: 50%; cursor: pointer; border: none; transition: all .2s; }
+    .pg-dot.active { background: #fff; width: 16px; border-radius: 3px; }
+    .pg-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,0.35); border: none; color: #fff; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .15s; }
+    .pg-nav:hover { background: rgba(0,0,0,0.6); }
+    .pg-prev { left: 8px; }
+    .pg-next { right: 8px; }
+    .pg-count { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.45); color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 20px; z-index: 2; }
+
+    .product-body { padding: 1.25rem; }
+    .product-cat { font-size: 10px; font-weight: 600; color: var(--orange); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+    .product-name { font-size: 17px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 8px; }
+    .product-desc { font-size: 13px; color: var(--text-2); line-height: 1.55; margin-bottom: 1rem; }
+    .product-variants { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 1rem; }
+    .variant-chip { font-size: 11px; padding: 3px 9px; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 20px; color: var(--text-2); }
+    .product-cta { display: block; width: 100%; text-align: center; padding: 10px; border: 1.5px solid var(--orange); border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--orange); transition: all .15s; }
+    .product-cta:hover { background: var(--orange); color: #fff; }
 
     /* ── FEATURES ── */
-    .features-bg {
-      background: var(--bg-soft);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1.5rem;
-    }
-    .feature-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      box-shadow: var(--shadow-card);
-    }
-    .feature-icon {
-      font-size: 2rem;
-      margin-bottom: 0.875rem;
-      display: block;
-    }
-    .feature-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-    .feature-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.55;
-    }
+    .features-bg { background: var(--bg-soft); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+    .feature-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); }
+    .feature-icon { font-size: 2rem; margin-bottom: 0.875rem; display: block; }
+    .feature-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .feature-desc { font-size: 13px; color: var(--text-2); line-height: 1.55; }
 
     /* ── PROCESO ── */
-    .proceso-steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 2rem;
-      position: relative;
-    }
-    .step {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .step-num {
-      width: 40px;
-      height: 40px;
-      background: var(--orange);
-      color: #fff;
-      font-size: 16px;
-      font-weight: 700;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-      flex-shrink: 0;
-    }
-    .step-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-    .step-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.55;
-    }
+    .proceso-steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2rem; }
+    .step-num { width: 40px; height: 40px; background: var(--orange); color: #fff; font-size: 16px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .step-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .step-desc { font-size: 13px; color: var(--text-2); line-height: 1.55; }
 
     /* ── CTA BANNER ── */
-    .cta-banner {
-      background: var(--orange);
-      border-radius: var(--radius-lg);
-      padding: 4rem 3rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .cta-banner::before {
-      content: '';
-      position: absolute;
-      top: -60px;
-      right: -60px;
-      width: 240px;
-      height: 240px;
-      background: rgba(255,255,255,0.07);
-      border-radius: 50%;
-    }
-    .cta-banner::after {
-      content: '';
-      position: absolute;
-      bottom: -80px;
-      left: -40px;
-      width: 300px;
-      height: 300px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 50%;
-    }
-    .cta-banner h2 {
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.8px;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-      position: relative;
-      z-index: 1;
-    }
-    .cta-banner p {
-      font-size: 16px;
-      color: rgba(255,255,255,0.85);
-      margin-bottom: 2rem;
-      position: relative;
-      z-index: 1;
-    }
-    .cta-banner-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
-    }
-    .btn-white {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #fff;
-      color: var(--orange);
-      padding: 14px 28px;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 700;
-      transition: transform .1s, opacity .15s;
-    }
+    .cta-banner { background: var(--orange); border-radius: var(--radius-lg); padding: 4rem 3rem; text-align: center; position: relative; overflow: hidden; }
+    .cta-banner::before { content: ''; position: absolute; top: -60px; right: -60px; width: 240px; height: 240px; background: rgba(255,255,255,0.07); border-radius: 50%; }
+    .cta-banner::after { content: ''; position: absolute; bottom: -80px; left: -40px; width: 300px; height: 300px; background: rgba(255,255,255,0.05); border-radius: 50%; }
+    .cta-banner h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; color: #fff; letter-spacing: -0.8px; line-height: 1.2; margin-bottom: 1rem; position: relative; z-index: 1; }
+    .cta-banner p { font-size: 16px; color: rgba(255,255,255,0.85); margin-bottom: 2rem; position: relative; z-index: 1; }
+    .cta-banner-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+    .btn-white { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--orange); padding: 14px 28px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: transform .1s, opacity .15s; }
     .btn-white:hover { transform: translateY(-1px); opacity: 0.95; }
-    .btn-white-outline {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: #fff;
-      border: 2px solid rgba(255,255,255,0.6);
-      padding: 14px 28px;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      transition: all .15s;
-    }
+    .btn-white-outline { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.6); padding: 14px 28px; border-radius: 10px; font-size: 15px; font-weight: 600; transition: all .15s; }
     .btn-white-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--bg-soft);
-      border-top: 1px solid var(--border);
-    }
-    .footer-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 3rem 1.5rem;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 3rem;
-    }
-    .footer-brand .logo { font-size: 20px; }
-    .footer-brand p {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-top: 0.75rem;
-      max-width: 260px;
-    }
-    .footer-col h4 {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 1rem;
-    }
+    footer { background: var(--bg-soft); border-top: 1px solid var(--border); }
+    .footer-inner { max-width: var(--max-w); margin: 0 auto; padding: 3rem 1.5rem; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; }
+    .footer-logo { height: 32px; width: auto; }
+    .footer-logo-fallback { font-size: 20px; font-weight: 700; }
+    .footer-logo-fallback em { color: var(--orange); font-style: normal; }
+    .footer-brand p { font-size: 13px; color: var(--text-2); line-height: 1.6; margin-top: 0.75rem; max-width: 260px; }
+    .footer-col h4 { font-size: 12px; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 1rem; }
     .footer-col ul { list-style: none; }
     .footer-col li { margin-bottom: 8px; }
-    .footer-col a {
-      font-size: 14px;
-      color: var(--text-secondary);
-      transition: color .15s;
-    }
+    .footer-col a { font-size: 14px; color: var(--text-2); transition: color .15s; }
     .footer-col a:hover { color: var(--orange); }
-    .footer-bottom {
-      border-top: 1px solid var(--border);
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 1.25rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .footer-bottom p {
-      font-size: 12px;
-      color: var(--text-tertiary);
-    }
-    .footer-wsp {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--wsp);
-      padding: 7px 14px;
-      border: 1.5px solid var(--wsp);
-      border-radius: 8px;
-      transition: all .15s;
-    }
+    .footer-bottom { border-top: 1px solid var(--border); max-width: var(--max-w); margin: 0 auto; padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .footer-bottom p { font-size: 12px; color: var(--text-3); }
+    .footer-wsp { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: var(--wsp); padding: 7px 14px; border: 1.5px solid var(--wsp); border-radius: 8px; transition: all .15s; }
     .footer-wsp:hover { background: var(--wsp); color: #fff; }
-    @media (max-width: 700px) {
-      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
-      .footer-bottom { flex-direction: column; text-align: center; }
-    }
+    @media (max-width: 700px) { .footer-inner { grid-template-columns: 1fr; gap: 2rem; } .footer-bottom { flex-direction: column; text-align: center; } }
 
-    /* ── DIVIDER ── */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      max-width: var(--max-w);
-      margin: 0 auto;
-    }
-
-    /* ── SVG ICONS ── */
+    .divider { border: none; border-top: 1px solid var(--border); max-width: var(--max-w); margin: 0 auto; }
     svg { flex-shrink: 0; }
   </style>
 </head>
@@ -645,71 +200,59 @@
   <nav>
     <div class="nav-inner">
       <div>
-        <img src="/images/logo.png" alt="DRAX Import" class="nav-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-        <div style="display:none">
-          <div class="logo">DRAX<em>.</em></div>
-          <div class="logo-sub">Import</div>
-        </div>
+        <img src="/images/logo.png" class="nav-logo" id="nav-logo" alt="DRAX Import" onerror="this.style.display='none';document.getElementById('nav-logo-fb').style.display='block'">
+        <div class="nav-logo-fallback" id="nav-logo-fb">DRAX<em>.</em></div>
       </div>
-      <ul class="nav-links">
+      <ul class="nav-links" id="nav-links">
         <li><a href="#productos">Productos</a></li>
         <li><a href="#por-que">Por qué DRAX</a></li>
         <li><a href="#proceso">Cómo comprar</a></li>
-        <li>
-          <a class="nav-cta" href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">
-            Cotizá ahora →
-          </a>
-        </li>
+        <li><a class="nav-cta" href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">Cotizá ahora →</a></li>
       </ul>
-      <button class="hamburger" aria-label="Menú" onclick="toggleMenu(this)">
+      <button class="hamburger" aria-label="Menú" onclick="toggleMenu()">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section>
-    <div class="hero">
-      <div>
-        <div class="hero-tag" id="hero-tag">🇨🇳 China → Argentina · Sin escalas</div>
-        <h1 id="hero-title">Remodelar tu casa<br>nunca fue<br><span>tan fácil</span></h1>
-        <p class="hero-desc" id="hero-desc">
-          Exportamos directo desde China a Argentina, sin intermediarios.
-          Paneles WPC, placas simil mármol UV y pisos SPC click al mejor precio del mercado.
-          Calculá tu presupuesto al instante.
-        </p>
-        <div class="hero-actions">
-          <a class="btn-primary" href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            Cotizador online
-          </a>
-          <a class="btn-wsp" href="https://wa.me/5491162992137" target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Consultá por WhatsApp
-          </a>
-        </div>
-      </div>
-      <div class="hero-img">
-        <img id="img-ambiente" src="/images/ambiente.jpg" alt="Ambiente revestido con productos DRAX" onerror="this.parentElement.innerHTML='<div class=hero-img-placeholder>ambiente.jpg</div>'">
+  <!-- HERO CAROUSEL -->
+  <div class="hero-wrap">
+    <div class="hc-slides" id="hc-slides">
+      <div class="hc-slide active">
+        <img src="/images/ambiente.jpg" alt="DRAX" onerror="this.style.background='#2a2a28'">
       </div>
     </div>
-  </section>
+    <div class="hc-overlay"></div>
+    <div class="hc-text">
+      <div class="hero-tag" id="hero-tag">🇨🇳 China → Argentina · Sin escalas</div>
+      <h1 id="hero-title">Remodelar tu casa<br>nunca fue<br><span>tan fácil</span></h1>
+      <p id="hero-desc">Exportamos directo desde China a Argentina, sin intermediarios. Paneles WPC, placas simil mármol UV y pisos SPC click al mejor precio del mercado.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" id="wsp-hero-cta" href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Cotizador online
+        </a>
+        <a class="btn-wsp" id="wsp-hero" href="https://wa.me/5491162992137" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+    <div class="hc-controls" id="hc-controls">
+      <button class="hc-arrow" onclick="heroNav(-1)">‹</button>
+      <div class="hc-dots" id="hc-dots">
+        <button class="hc-dot active"></button>
+      </div>
+      <button class="hc-arrow" onclick="heroNav(1)">›</button>
+    </div>
+  </div>
 
   <!-- STATS -->
   <div class="stats-bar">
     <div class="stats-inner" id="stats-inner">
-      <div class="stat">
-        <div class="stat-num">+30</div>
-        <div class="stat-label">Diseños disponibles</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">24h</div>
-        <div class="stat-label">Respuesta garantizada</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Importado directo</div>
-      </div>
+      <div class="stat"><div class="stat-num">+30</div><div class="stat-label">Diseños disponibles</div></div>
+      <div class="stat"><div class="stat-num">24h</div><div class="stat-label">Respuesta garantizada</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Importado directo</div></div>
     </div>
   </div>
 
@@ -721,82 +264,8 @@
         <h2 class="section-title">Nuestros productos</h2>
         <p class="section-desc">Materiales de alta durabilidad para interiores y exteriores, con instalación simple y acabados que duran años.</p>
       </div>
-      <div class="products-grid">
-
-        <!-- WPC Interior -->
-        <div class="product-card">
-          <div class="product-img">
-            <img id="img-wpc" src="/images/wpc.jpg" alt="Panel WPC Interior" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>🪵</div>'">
-          </div>
-          <div class="product-body">
-            <div class="product-cat">Revestimiento interior</div>
-            <div class="product-name">Panel WPC Interior</div>
-            <p class="product-desc">Sistema de paneles de madera compuesta para paredes interiores. Fácil instalación con sistema de clips, sin pegamentos ni especialistas.</p>
-            <div class="product-variants">
-              <span class="variant-chip">Madera clara</span>
-              <span class="variant-chip">Negro mate</span>
-              <span class="variant-chip">Roble</span>
-              <span class="variant-chip">Cedro</span>
-            </div>
-            <a class="product-cta" href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">Cotizar →</a>
-          </div>
-        </div>
-
-        <!-- WPC Exterior -->
-        <div class="product-card">
-          <div class="product-img">
-            <img id="img-wpc_ext" src="/images/atornilladora.jpg" alt="Panel WPC Exterior" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>🏗️</div>'">
-          </div>
-          <div class="product-body">
-            <div class="product-cat">Revestimiento exterior</div>
-            <div class="product-name">Panel WPC Exterior</div>
-            <p class="product-desc">Resistente a la intemperie, la humedad y los rayos UV. Ideal para fachadas, terrazas y jardines. Cero mantenimiento.</p>
-            <div class="product-variants">
-              <span class="variant-chip">Teak</span>
-              <span class="variant-chip">Dark brown</span>
-            </div>
-            <a class="product-cta" href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">Cotizar →</a>
-          </div>
-        </div>
-
-        <!-- UV Mármol -->
-        <div class="product-card">
-          <div class="product-img">
-            <img id="img-marmol" src="/images/marmol.jpg" alt="Placa UV Simil Mármol" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>🪨</div>'">
-          </div>
-          <div class="product-body">
-            <div class="product-cat">Simil mármol</div>
-            <div class="product-name">Placa UV Simil Mármol</div>
-            <p class="product-desc">Acabado lujoso de mármol a una fracción del costo. Placas grandes de 1.22 × 2.44 m, perfectas para baños, cocinas y living.</p>
-            <div class="product-variants">
-              <span class="variant-chip">Calacatta</span>
-              <span class="variant-chip">Carrara</span>
-              <span class="variant-chip">Marquina</span>
-              <span class="variant-chip">+8 diseños</span>
-            </div>
-            <a class="product-cta" href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">Cotizar →</a>
-          </div>
-        </div>
-
-        <!-- Pisos SPC -->
-        <div class="product-card">
-          <div class="product-img">
-            <img id="img-pisos" src="/images/pisos.jpg" alt="Pisos SPC Click" onerror="this.parentElement.innerHTML='<div class=product-img-placeholder>🏠</div>'">
-          </div>
-          <div class="product-body">
-            <div class="product-cat">Pisos flotantes</div>
-            <div class="product-name">Pisos SPC Click</div>
-            <p class="product-desc">Piso flotante de núcleo pétreo 100% impermeable. Superior al laminado tradicional, se instala sobre cualquier superficie plana.</p>
-            <div class="product-variants">
-              <span class="variant-chip">Gris nórdico</span>
-              <span class="variant-chip">Nogal</span>
-              <span class="variant-chip">Arena</span>
-              <span class="variant-chip">Roble salvia</span>
-            </div>
-            <a class="product-cta" href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">Cotizar →</a>
-          </div>
-        </div>
-
+      <div class="products-grid" id="products-grid">
+        <!-- Renderizado por JS desde content.json -->
       </div>
     </div>
   </section>
@@ -807,39 +276,15 @@
       <div class="section-header">
         <div class="section-tag">Diferencial</div>
         <h2 class="section-title">Por qué elegir DRAX</h2>
-        <p class="section-desc">Importamos directo para darte la mejor relación calidad-precio del mercado, con asesoramiento real.</p>
+        <p class="section-desc">Importamos directo para darte la mejor relación calidad-precio del mercado.</p>
       </div>
       <div class="features-grid">
-        <div class="feature-card">
-          <span class="feature-icon">🇨🇳</span>
-          <div class="feature-title">De China a Argentina, sin escalas</div>
-          <p class="feature-desc">Somos exportadores directos desde fábrica en China. Sin distribuidores, sin remarques intermedios — el precio más bajo del mercado, garantizado.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">📐</span>
-          <div class="feature-title">Cotizador exacto</div>
-          <p class="feature-desc">Ingresás los metros cuadrados y el sistema calcula cajas, accesorios y precio total al instante, con o sin desperdicios.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">💰</span>
-          <div class="feature-title">Precio mayorista</div>
-          <p class="feature-desc">A partir de cierto volumen el precio baja automáticamente. Ideal para constructoras, arquitectos y revendedores.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">🛠️</span>
-          <div class="feature-title">Instalación simple</div>
-          <p class="feature-desc">Sistemas de click y clips que no requieren obra húmeda. Con las instrucciones correctas cualquier instalador lo puede hacer.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">✅</span>
-          <div class="feature-title">Stock disponible</div>
-          <p class="feature-desc">El cotizador muestra en tiempo real qué productos están en stock, para que planifiques sin sorpresas.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">💬</span>
-          <div class="feature-title">Asesoramiento real</div>
-          <p class="feature-desc">Respondemos por WhatsApp con tiempos reales de respuesta. Sin bots, sin formularios, directo con quien sabe.</p>
-        </div>
+        <div class="feature-card"><span class="feature-icon">🇨🇳</span><div class="feature-title">De China a Argentina, sin escalas</div><p class="feature-desc">Somos exportadores directos desde fábrica en China. Sin distribuidores, sin remarques intermedios — el precio más bajo del mercado, garantizado.</p></div>
+        <div class="feature-card"><span class="feature-icon">📐</span><div class="feature-title">Cotizador exacto</div><p class="feature-desc">Ingresás los metros cuadrados y el sistema calcula cajas, accesorios y precio total al instante, con o sin desperdicios.</p></div>
+        <div class="feature-card"><span class="feature-icon">💰</span><div class="feature-title">Precio mayorista</div><p class="feature-desc">A partir de cierto volumen el precio baja automáticamente. Ideal para constructoras, arquitectos y revendedores.</p></div>
+        <div class="feature-card"><span class="feature-icon">🛠️</span><div class="feature-title">Instalación simple</div><p class="feature-desc">Sistemas de click y clips que no requieren obra húmeda. Con las instrucciones correctas cualquier instalador lo puede hacer.</p></div>
+        <div class="feature-card"><span class="feature-icon">✅</span><div class="feature-title">Stock disponible</div><p class="feature-desc">El cotizador muestra en tiempo real qué productos están en stock, para que planifiques sin sorpresas.</p></div>
+        <div class="feature-card"><span class="feature-icon">💬</span><div class="feature-title">Asesoramiento real</div><p class="feature-desc">Respondemos por WhatsApp con tiempos reales de respuesta. Sin bots, sin formularios, directo con quien sabe.</p></div>
       </div>
     </div>
   </div>
@@ -850,29 +295,12 @@
       <div class="section-header">
         <div class="section-tag">Proceso</div>
         <h2 class="section-title">Cómo comprar en 4 pasos</h2>
-        <p class="section-desc">Simple, rápido y sin vueltas.</p>
       </div>
       <div class="proceso-steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-title">Medís tu espacio</div>
-          <p class="step-desc">Tomás los metros cuadrados del lugar donde vas a instalar y los ingresás en el cotizador.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-title">Elegís el producto</div>
-          <p class="step-desc">Seleccionás categoría, diseño y variante. El sistema te muestra disponibilidad en stock al instante.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-title">Obtenés el presupuesto</div>
-          <p class="step-desc">El cotizador calcula cajas necesarias, accesorios opcionales y precio total, en efectivo o tarjeta.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-title">Cerrás por WhatsApp</div>
-          <p class="step-desc">Con un click enviás el presupuesto completo a nuestro WhatsApp y coordinamos entrega y pago.</p>
-        </div>
+        <div><div class="step-num">1</div><div class="step-title">Medís tu espacio</div><p class="step-desc">Tomás los metros cuadrados del lugar donde vas a instalar y los ingresás en el cotizador.</p></div>
+        <div><div class="step-num">2</div><div class="step-title">Elegís el producto</div><p class="step-desc">Seleccionás categoría, diseño y variante. El sistema te muestra disponibilidad en stock al instante.</p></div>
+        <div><div class="step-num">3</div><div class="step-title">Obtenés el presupuesto</div><p class="step-desc">El cotizador calcula cajas necesarias, accesorios opcionales y precio total, en efectivo o tarjeta.</p></div>
+        <div><div class="step-num">4</div><div class="step-title">Cerrás por WhatsApp</div><p class="step-desc">Con un click enviás el presupuesto completo a nuestro WhatsApp y coordinamos entrega y pago.</p></div>
       </div>
     </div>
   </section>
@@ -886,10 +314,8 @@
         <h2 id="cta-title">¿Tenés un proyecto en mente?<br>Cotizá gratis en segundos.</h2>
         <p id="cta-desc">Sin registrarse. Sin datos personales. El presupuesto es tuyo al instante.</p>
         <div class="cta-banner-actions">
-          <a class="btn-white" href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">
-            Ir al cotizador →
-          </a>
-          <a class="btn-white-outline" href="https://wa.me/5491162992137" target="_blank" rel="noopener">
+          <a class="btn-white" href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">Ir al cotizador →</a>
+          <a class="btn-white-outline" id="wsp-cta" href="https://wa.me/5491162992137" target="_blank" rel="noopener">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             Hablar por WhatsApp
           </a>
@@ -902,30 +328,31 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="logo">DRAX<em>.</em> <span style="font-size:14px;font-weight:400;color:var(--text-tertiary)">Import</span></div>
-        <p>Revestimientos y pisos premium importados directamente para proyectos residenciales y comerciales en Argentina.</p>
+        <img src="/images/logo.png" class="footer-logo" alt="DRAX Import" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="footer-logo-fallback" style="display:none">DRAX<em>.</em></div>
+        <p>Revestimientos y pisos premium importados directamente desde China para proyectos residenciales y comerciales en Argentina.</p>
       </div>
       <div class="footer-col">
         <h4>Productos</h4>
         <ul>
-          <li><a href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">Panel WPC Interior</a></li>
-          <li><a href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">Panel WPC Exterior</a></li>
-          <li><a href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">Placa UV Simil Mármol</a></li>
-          <li><a href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">Pisos SPC Click</a></li>
+          <li><a href="https://cotizador-drax-production.up.railway.app/" target="_blank">Panel WPC Interior</a></li>
+          <li><a href="https://cotizador-drax-production.up.railway.app/" target="_blank">Panel WPC Exterior</a></li>
+          <li><a href="https://cotizador-drax-production.up.railway.app/" target="_blank">Placa UV Simil Mármol</a></li>
+          <li><a href="https://cotizador-drax-production.up.railway.app/" target="_blank">Pisos SPC Click</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Contacto</h4>
         <ul>
-          <li><a href="https://wa.me/5491162992137" target="_blank" rel="noopener">WhatsApp</a></li>
-          <li><a href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">Cotizador online</a></li>
+          <li><a id="footer-wsp-link" href="https://wa.me/5491162992137" target="_blank">WhatsApp</a></li>
+          <li><a href="https://cotizador-drax-production.up.railway.app/" target="_blank">Cotizador online</a></li>
           <li><a href="#productos">Ver catálogo</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2025 DRAX Import · Todos los derechos reservados</p>
-      <a class="footer-wsp" href="https://wa.me/5491162992137" target="_blank" rel="noopener">
+      <a class="footer-wsp" id="footer-wsp-btn" href="https://wa.me/5491162992137" target="_blank">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         +54 11 6299-2137
       </a>
@@ -933,61 +360,169 @@
   </footer>
 
   <script>
-    // Carga contenido dinámico desde content.json
+    // ── HERO CAROUSEL ──────────────────────────────────────────
+    let heroSlides = [], heroIdx = 0, heroTimer;
+
+    function renderHero(slides) {
+      heroSlides = slides.length ? slides : ['/images/ambiente.jpg'];
+      const container = document.getElementById('hc-slides');
+      container.innerHTML = heroSlides.map((src, i) =>
+        `<div class="hc-slide${i===0?' active':''}">
+          <img src="${src}" alt="DRAX" onerror="this.style.background='#2a2a28'">
+        </div>`
+      ).join('');
+      const dotsEl = document.getElementById('hc-dots');
+      dotsEl.innerHTML = heroSlides.map((_, i) =>
+        `<button class="hc-dot${i===0?' active':''}" onclick="heroGoTo(${i})"></button>`
+      ).join('');
+      // Ocultar controles si hay 1 sola imagen
+      document.getElementById('hc-controls').style.display = heroSlides.length > 1 ? 'flex' : 'none';
+      if (heroSlides.length > 1) startHeroTimer();
+    }
+
+    function heroGoTo(idx) {
+      const slides = document.querySelectorAll('.hc-slide');
+      const dots   = document.querySelectorAll('.hc-dot');
+      slides[heroIdx]?.classList.remove('active');
+      dots[heroIdx]?.classList.remove('active');
+      heroIdx = ((idx % heroSlides.length) + heroSlides.length) % heroSlides.length;
+      slides[heroIdx]?.classList.add('active');
+      dots[heroIdx]?.classList.add('active');
+    }
+
+    function heroNav(dir) {
+      clearTimeout(heroTimer);
+      heroGoTo(heroIdx + dir);
+      startHeroTimer();
+    }
+
+    function startHeroTimer() {
+      clearTimeout(heroTimer);
+      heroTimer = setTimeout(() => { heroGoTo(heroIdx + 1); startHeroTimer(); }, 5000);
+    }
+
+    // ── PRODUCTOS ──────────────────────────────────────────────
+    function renderProducts(products) {
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = products.map(p => `
+        <div class="product-card">
+          <div class="product-gallery">
+            <div class="pg-track" id="pgt-${p.id}">
+              ${p.images.map(img =>
+                `<img class="pg-img" src="${img}" alt="${p.name}" onerror="this.style.background='#eeecea'">`
+              ).join('')}
+            </div>
+            ${p.images.length > 1 ? `
+              <button class="pg-nav pg-prev" onclick="pgNav('${p.id}',-1)">‹</button>
+              <button class="pg-nav pg-next" onclick="pgNav('${p.id}',1)">›</button>
+              <div class="pg-dots" id="pgd-${p.id}">
+                ${p.images.map((_,i) =>
+                  `<button class="pg-dot${i===0?' active':''}" onclick="pgScrollTo('${p.id}',${i})"></button>`
+                ).join('')}
+              </div>
+              <div class="pg-count" id="pgc-${p.id}">1 / ${p.images.length}</div>
+            ` : ''}
+          </div>
+          <div class="product-body">
+            <div class="product-cat">${p.cat}</div>
+            <div class="product-name">${p.name}</div>
+            <p class="product-desc">${p.desc}</p>
+            <div class="product-variants">${p.variants.map(v => `<span class="variant-chip">${v}</span>`).join('')}</div>
+            <a class="product-cta" href="https://cotizador-drax-production.up.railway.app/" target="_blank" rel="noopener">Cotizar →</a>
+          </div>
+        </div>
+      `).join('');
+
+      // Listeners de scroll para actualizar dots y contador
+      products.forEach(p => {
+        if (p.images.length > 1) {
+          const track = document.getElementById('pgt-' + p.id);
+          track.addEventListener('scroll', () => pgUpdateDots(p.id, track, p.images.length), { passive: true });
+        }
+      });
+    }
+
+    function pgScrollTo(id, idx) {
+      const track = document.getElementById('pgt-' + id);
+      track.scrollTo({ left: track.clientWidth * idx, behavior: 'smooth' });
+    }
+
+    function pgNav(id, dir) {
+      const track = document.getElementById('pgt-' + id);
+      const current = Math.round(track.scrollLeft / track.clientWidth);
+      pgScrollTo(id, current + dir);
+    }
+
+    function pgUpdateDots(id, track, total) {
+      const idx = Math.round(track.scrollLeft / track.clientWidth);
+      document.querySelectorAll(`#pgd-${id} .pg-dot`).forEach((d,i) =>
+        d.classList.toggle('active', i === idx)
+      );
+      const counter = document.getElementById('pgc-' + id);
+      if (counter) counter.textContent = `${idx + 1} / ${total}`;
+    }
+
+    // ── CONTENIDO DINÁMICO ─────────────────────────────────────
     fetch('/api/content').then(r => r.json()).then(c => {
       // Hero
       if (c.hero) {
-        if (c.hero.tag) document.getElementById('hero-tag').textContent = c.hero.tag;
-        if (c.hero.title) document.getElementById('hero-title').innerHTML = c.hero.title.replace(/\n/g, '<br>') + ' <!-- rebuilt -->';
-        if (c.hero.desc) document.getElementById('hero-desc').textContent = c.hero.desc;
+        if (c.hero.tag)   document.getElementById('hero-tag').textContent = c.hero.tag;
+        if (c.hero.title) document.getElementById('hero-title').innerHTML =
+          c.hero.title.replace(/\n/g, '<br>').replace(/tan fácil/, '<span>tan fácil</span>');
+        if (c.hero.desc)  document.getElementById('hero-desc').textContent = c.hero.desc;
+        renderHero(c.hero.slides || []);
       }
+
       // Stats
-      if (c.stats && c.stats.length) {
-        const container = document.getElementById('stats-inner');
-        container.innerHTML = c.stats.map(s =>
+      if (c.stats?.length) {
+        document.getElementById('stats-inner').innerHTML = c.stats.map(s =>
           `<div class="stat"><div class="stat-num">${s.num}</div><div class="stat-label">${s.label}</div></div>`
         ).join('');
       }
-      // CTA
-      if (c.cta) {
-        if (c.cta.title) document.getElementById('cta-title').innerHTML = c.cta.title.replace(/\n/g, '<br>');
-        if (c.cta.desc) document.getElementById('cta-desc').textContent = c.cta.desc;
-      }
-      // Imágenes
-      if (c.images) {
-        Object.entries(c.images).forEach(([key, url]) => {
-          const el = document.getElementById('img-' + key);
-          if (el && url) { el.src = url; el.onerror = null; }
-          if (key === 'logo') {
-            const nav = document.querySelector('.nav-logo');
-            if (nav) nav.src = url;
-          }
-        });
-      }
-      // WhatsApp links
-      if (c.whatsapp) {
-        document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
-          a.href = 'https://wa.me/' + c.whatsapp;
-        });
-      }
-    }).catch(() => {}); // Si falla, el contenido por defecto del HTML queda igual
 
-    function toggleMenu(btn) {
-      const links = document.querySelector('.nav-links');
-      const open = links.style.display === 'flex';
-      links.style.display = open ? 'none' : 'flex';
-      links.style.flexDirection = 'column';
-      links.style.position = 'absolute';
-      links.style.top = '62px';
-      links.style.left = '0';
-      links.style.right = '0';
-      links.style.background = 'var(--bg)';
-      links.style.padding = '1rem 1.5rem';
-      links.style.borderBottom = '1px solid var(--border)';
-      links.style.gap = '1rem';
-      links.style.zIndex = '99';
+      // Productos
+      if (c.products?.length) renderProducts(c.products);
+
+      // CTA
+      if (c.cta?.title) document.getElementById('cta-title').innerHTML = c.cta.title.replace(/\n/g, '<br>');
+      if (c.cta?.desc)  document.getElementById('cta-desc').textContent = c.cta.desc;
+
+      // WhatsApp
+      if (c.whatsapp) {
+        const url = 'https://wa.me/' + c.whatsapp;
+        ['wsp-hero','wsp-cta','footer-wsp-link','footer-wsp-btn'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.href = url;
+        });
+      }
+
+      // Logo
+      if (c.logo) {
+        document.getElementById('nav-logo').src = c.logo;
+      }
+    }).catch(() => {
+      // Si falla la API, igual renderiza los productos por defecto hardcodeados
+      renderHero(['/images/ambiente.jpg']);
+      renderProducts([
+        { id:'wpc', cat:'Revestimiento interior', name:'Panel WPC Interior', desc:'Sistema de paneles de madera compuesta. Fácil instalación con clips.', variants:['Madera clara','Negro mate','Roble','Cedro'], images:['/images/wpc.jpg'] },
+        { id:'wpc_ext', cat:'Revestimiento exterior', name:'Panel WPC Exterior', desc:'Resistente a la intemperie y rayos UV. Cero mantenimiento.', variants:['Teak','Dark brown'], images:['/images/atornilladora.jpg'] },
+        { id:'uv', cat:'Simil mármol', name:'Placa UV Simil Mármol', desc:'Acabado lujoso de mármol a una fracción del costo.', variants:['Calacatta','Carrara','Marquina','+8 diseños'], images:['/images/marmol.jpg'] },
+        { id:'pisos', cat:'Pisos flotantes', name:'Pisos SPC Click', desc:'Piso flotante 100% impermeable. Se instala sobre cualquier superficie plana.', variants:['Gris nórdico','Nogal','Arena','Roble salvia'], images:['/images/pisos.jpg'] }
+      ]);
+    });
+
+    // ── NAV MOBILE ─────────────────────────────────────────────
+    function toggleMenu() {
+      const links = document.getElementById('nav-links');
+      const open = links.classList.contains('open');
+      if (open) {
+        links.classList.remove('open');
+        Object.assign(links.style, { display:'', flexDirection:'', position:'', top:'', left:'', right:'', background:'', padding:'', borderBottom:'', gap:'', zIndex:'' });
+      } else {
+        links.classList.add('open');
+        Object.assign(links.style, { display:'flex', flexDirection:'column', position:'fixed', top:'62px', left:'0', right:'0', background:'#0f0f0d', padding:'1rem 1.5rem', borderBottom:'1px solid rgba(255,255,255,0.1)', gap:'1rem', zIndex:'99' });
+      }
     }
   </script>
-
 </body>
 </html>
