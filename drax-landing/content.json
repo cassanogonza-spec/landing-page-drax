@@ -2,8 +2,43 @@
   "hero": {
     "tag": "🇨🇳 China → Argentina · Sin escalas",
     "title": "Remodelar tu casa\nnunca fue\ntan fácil",
-    "desc": "Exportamos directo desde China a Argentina, sin intermediarios. Paneles WPC, placas simil mármol UV y pisos SPC click al mejor precio del mercado. Calculá tu presupuesto al instante."
+    "desc": "Exportamos directo desde China a Argentina, sin intermediarios. Paneles WPC, placas simil mármol UV y pisos SPC click al mejor precio del mercado.",
+    "slides": ["/images/ambiente.jpg"]
   },
+  "products": [
+    {
+      "id": "wpc",
+      "cat": "Revestimiento interior",
+      "name": "Panel WPC Interior",
+      "desc": "Sistema de paneles de madera compuesta para paredes interiores. Fácil instalación con sistema de clips, sin pegamentos ni especialistas.",
+      "variants": ["Madera clara", "Negro mate", "Roble", "Cedro"],
+      "images": ["/images/wpc.jpg"]
+    },
+    {
+      "id": "wpc_ext",
+      "cat": "Revestimiento exterior",
+      "name": "Panel WPC Exterior",
+      "desc": "Resistente a la intemperie, la humedad y los rayos UV. Ideal para fachadas, terrazas y jardines. Cero mantenimiento.",
+      "variants": ["Teak", "Dark brown"],
+      "images": ["/images/atornilladora.jpg"]
+    },
+    {
+      "id": "uv",
+      "cat": "Simil mármol",
+      "name": "Placa UV Simil Mármol",
+      "desc": "Acabado lujoso de mármol a una fracción del costo. Placas grandes de 1.22 × 2.44 m, perfectas para baños, cocinas y living.",
+      "variants": ["Calacatta", "Carrara", "Marquina", "+8 diseños"],
+      "images": ["/images/marmol.jpg"]
+    },
+    {
+      "id": "pisos",
+      "cat": "Pisos flotantes",
+      "name": "Pisos SPC Click",
+      "desc": "Piso flotante de núcleo pétreo 100% impermeable. Superior al laminado tradicional, se instala sobre cualquier superficie plana.",
+      "variants": ["Gris nórdico", "Nogal", "Arena", "Roble salvia"],
+      "images": ["/images/pisos.jpg"]
+    }
+  ],
   "stats": [
     { "num": "+30", "label": "Diseños disponibles" },
     { "num": "24h", "label": "Respuesta garantizada" },
@@ -14,12 +49,5 @@
     "desc": "Sin registrarse. Sin datos personales. El presupuesto es tuyo al instante."
   },
   "whatsapp": "5491162992137",
-  "images": {
-    "ambiente": "/images/ambiente.jpg",
-    "wpc": "/images/wpc.jpg",
-    "wpc_ext": "/images/atornilladora.jpg",
-    "marmol": "/images/marmol.jpg",
-    "pisos": "/images/pisos.jpg",
-    "logo": "/images/logo.png"
-  }
+  "logo": "/images/logo.png"
 }
